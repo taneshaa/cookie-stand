@@ -284,12 +284,12 @@ let lima = new Store('Lima', 2, 16, 4.6);
 lima.render();
 console.log(store);
 
+// lots of confusion here?? I tried referencing kitten code but have no idea what to do next??
+function handleSubmit(event){
+  event.preventDefault();
+  let storeName = event.target.storeName.value;
+  let minCustHour = event.target.minCustHour.value;
+  let maxCustHour = event.target.maxCustHour.value;
+  let avgCookieCust = event.target.avgCookieCust.value;
+}
 
-
-//change names of renderFooter!!
-
-// function renderFooter (){
-//   let tableFooter = document.createElement('foot');
-//   parentElement.appendChild(tableFooter);
-//   let tableRow = 
-// }
