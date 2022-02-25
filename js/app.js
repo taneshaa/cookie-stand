@@ -41,6 +41,10 @@ Store.prototype.render = function () {
     td1.textContent = `${this.cookiesBought[i]}`;
     row.appendChild(td1);
   }
+  // let td = document.createElement('td');
+  // td.textContent = this.totalCookies;
+  // row.appendChild(td);
+  // table.appendChild(row);
 };
 
 function tableHead() {
@@ -54,8 +58,13 @@ function tableHead() {
     td.textContent = hours[i];
     tableHeadRow.appendChild(td);
   }
-
+  let tableHeadTotal = document.createElement('th');
+  tableHeadTotal.textContent = 'daily totals';
+  tableHeadRow.appendChild(tableHeadTotal);
+  let salesTable = document.getElementById('table');
+  salesTable.appendChild(tableHeadRow);
 }
+
 tableHead();
 
 function tableFooter() {
@@ -262,7 +271,7 @@ function cookiesSold() {
   let city = [Seattle, Tokyo, Dubai, Paris, Lima,];
   for (let i = 0; i < MediaCapabilities.length; i++) {
     let city = cities[i];
-    for (let j = o; j < 14; j++) {
+    for (let j = 0; j < 14; j++) {
       city.custGen();
       let cookies = Math.ceil(Number(city.cust) * Number(city.avgCookieCust));
       city.cookiesBought.push(cookies);
