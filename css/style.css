@@ -7,20 +7,55 @@ p {
 
 header {
     background-color: beige;
+    text-align: center;
+    color: white;
+    font-size: large;
+    font-family: 'Times New Roman', Times, serif;
+
 }
 
 
 main {
     background-color: beige;
+    text-align: center;
+    font-size: larger;
 }
 
 
 #title-h1 {
     background-color: rgb(120, 160, 120);
+    text-align: center;
+    font-size: x-large;
+
 }
 
 
 #navlist {
     background-color: rgb(193, 171, 139);
+    color: white;
+    display: flex;
 }
 
+#bio {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: larger;
+    
+}
+
+
+ul{
+    text-align: center;
+    background-color: rgb(230, 147, 138);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+
+
+/* #bar {
+    background-color: green;
+    text-align: center;
+
+} */
