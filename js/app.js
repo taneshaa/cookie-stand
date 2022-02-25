@@ -1,7 +1,8 @@
 'use strict';
 let table = document.getElementById('table');
-
+let form = document.getElementById('location-form');
 let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm',];
+let stores = [];
 
 
 
@@ -13,6 +14,7 @@ function Store(storeName, minCustHour, maxCustHour, avgCookieCust) {
   this.cust = [];
   this.cookiesBought = [];
   this.totalCookies = 0;
+  stores.push(this);
 }
 
 Store.prototype.custGen = function () {
@@ -26,6 +28,7 @@ Store.prototype.cookiesPerHour = function () {
   for (let i = 0; i < hours.length; i++) {
     let cookiesPerHour = Math.ceil(this.avgCookieCust * this.cust[i]);
     this.cookiesBought.push(cookiesPerHour);
+    this.totalCookies+= cookiesPerHour;
   }
 };
 
@@ -41,9 +44,9 @@ Store.prototype.render = function () {
     td1.textContent = `${this.cookiesBought[i]}`;
     row.appendChild(td1);
   }
-  // let td = document.createElement('td');
-  // td.textContent = this.totalCookies;
-  // row.appendChild(td);
+  let newTd = document.createElement('td');
+  newTd.textContent = this.totalCookies;
+  row.appendChild(newTd);
   // table.appendChild(row);
 };
 
@@ -73,16 +76,25 @@ function tableFooter() {
   let tableFooterRow = document.createElement('tr');
   tableFooter.appendChild(tableFooterRow);
   let td = document.createElement('td');
-  td.textConent = 'cookies total';
-  tableFooterRow.append(td);
+  td.textContent = 'cookies total';
+  tableFooterRow.appendChild(td);
+  let cookiesTotal = 0;
   for (let i = 0; i < hours.length; i++) {
     let hourlyTotal = 0;
-    for (let j = 0; j < locationList.length; j++) {
-      hourlyTotal += locationList[j].cookiesBought[i];
+    for (let j = 0; j < stores.length; j++) {
+      hourlyTotal += stores[j].cookiesBought[i];
     }
+    let td = document.createElement('td');
+    td.textContent = hourlyTotal;
+    tableFooterRow.appendChild(td);
+    cookiesTotal += hourlyTotal;
   }
-
+  let td1 = document.createElement('td');
+  td1.textContent = cookiesTotal;
+  tableFooterRow.appendChild(td1);
 }
+
+
 //     let totalCell = document.createElement('td'); totalCell.textContent = 'Daily Totals'; tableRow.appleChild(totalCell);
 // }
 // renderHeader();
@@ -267,18 +279,18 @@ function tableFooter() {
 // };
 // Lima.render();
 
-function cookiesSold() {
-  let city = [Seattle, Tokyo, Dubai, Paris, Lima,];
-  for (let i = 0; i < MediaCapabilities.length; i++) {
-    let city = cities[i];
-    for (let j = 0; j < 14; j++) {
-      city.custGen();
-      let cookies = Math.ceil(Number(city.cust) * Number(city.avgCookieCust));
-      city.cookiesBought.push(cookies);
-    }
-    city.cookieSum();
-  }
-}
+// function cookiesSold() {
+//   let city = [Seattle, Tokyo, Dubai, Paris, Lima,];
+//   for (let i = 0; i < MediaCapabilities.length; i++) {
+//     let city = cities[i];
+//     for (let j = 0; j < 14; j++) {
+//       city.custGen();
+//       let cookies = Math.ceil(Number(city.cust) * Number(city.avgCookieCust));
+//       city.cookiesBought.push(cookies);
+//     }
+//     city.cookieSum();
+//   }
+// }
 
 
 let seattle = new Store('Seattle', 23, 65, 6.3);
@@ -291,14 +303,18 @@ let paris = new Store('Paris', 20, 38, 2.3);
 paris.render();
 let lima = new Store('Lima', 2, 16, 4.6);
 lima.render();
-console.log(store);
+// console.log(store);
 
 // lots of confusion here?? I tried referencing kitten code but have no idea what to do next??
-function handleSubmit(event){
+function handleSubmit(event) {
   event.preventDefault();
-  let storeName = event.target.storeName.value;
-  let minCustHour = event.target.minCustHour.value;
-  let maxCustHour = event.target.maxCustHour.value;
-  let avgCookieCust = event.target.avgCookieCust.value;
+  let storeName = event.target.location.value;
+  let minCustHour = +event.target.minCustHour.value;
+  let maxCustHour = +event.target.maxCustHour.value;
+  let avgCookieCust = +event.target.avgCookieCust.value;
+  let newStore = new Store(storeName, minCustHour, maxCustHour, avgCookieCust);
+  newStore.render();
 }
+tableFooter();
 
+form.addEventListener('submit', handleSubmit);
